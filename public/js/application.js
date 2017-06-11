@@ -33,7 +33,7 @@ $(".container").on("submit", "#new-horse-form", function(event){
 
   $.done(function(responseHTML){
     $('.list').append(responseHTML)
-    $('.add-a-horse').remove();
+    $('.add-horse-form').remove();
     $('#new-horse-form').show();
   })
 })

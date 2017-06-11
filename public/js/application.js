@@ -6,38 +6,35 @@ $("#add-horse-form").on("submit", function(event){
 
     var $form = $(this);
 
-
     $.ajax({
       method: $form.attr('method'),
       url: $form.attr('action'),
     })
 
      .done(function(response) {
-      $('.container').append(response);
       $form.hide();
+      $('.container').append(response);
     })
 
 });
 
 
-$(".container").on("submit", "#add-horse-form", function(event){
+$(".container").on("submit", "#new-horse-form", function(event){
   event.preventDefault();
 
   var $form = $(this);
-  var method = $form.attr("method");
-  var action = $form.attr("action");
   var formData = $form.serialize();
 
   $.ajax({
-    method: method,
-    action: action,
+    method: $form.attr('method'),
+    action: $form.attr('action'),
     data: formData
   })
 
   $.done(function(responseHTML){
-    $('horse-list').append(responseHTML)
-    $('.add-a-horse').hide();
-    $('#add-horse-form').show();
+    $('.list').append(responseHTML)
+    $('.add-a-horse').remove();
+    $('#new-horse-form').show();
   })
 })
 });

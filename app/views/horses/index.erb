@@ -2,10 +2,10 @@
 
 <ul class="list">
   <% @horses.each do |horse| %>
-    <% erb :'/horses/_each_horse', locals: {horse: horse} %>
+  <%= erb :'horses/_details', locals: {horse: horse} %>
   <% end %>
 </ul>
 
 <form id="add-horse-form" class="flex flex-column" method="GET" action="/horses/new">
-  <button type="submit" class="button dark">Add a Horse</button>
+  <button id="add-horse-button" type="submit" class="button dark">Add a Horse</button>
 </form>

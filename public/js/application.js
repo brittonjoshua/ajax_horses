@@ -12,8 +12,8 @@ $("#add-horse-form").on("submit", function(event){
     })
 
      .done(function(response) {
-      $form.hide();
-      $('.container').append(response);
+       $("#add-horse-button").hide();
+      $('.list').append(response);
     })
 
 });
@@ -21,6 +21,7 @@ $("#add-horse-form").on("submit", function(event){
 
 $(".container").on("submit", "#new-horse-form", function(event){
   event.preventDefault();
+  // alert('new horse');
 
   var $form = $(this);
   var formData = $form.serialize();
@@ -31,10 +32,36 @@ $(".container").on("submit", "#new-horse-form", function(event){
     data: formData
   })
 
-  $.done(function(responseHTML){
+  .done(function(responseHTML){
     $('.list').append(responseHTML)
-    $('.add-horse-form').remove();
-    $('#new-horse-form').show();
+    $form.remove();
+    $('#add-horse-button').show();
   })
+  .fail(function(errorResponse){
+    alert(errorResponse.responseText)
+  })
+});
+
+$(".list-item").on("click", "a", function(event){
+  event.preventDefault();
+  console.log('stop that horse')
+
+  var $link = $(this);
+  console.log($link)
+  var $url = $(this).attr("href");
+
+  $.ajax({
+      url: $url,
+      method: 'GET'
+
+  })
+
+  .done(function(response){
+      console.log(response);
+      $('.horse-details').remove();
+      $link.parent().append(response);
+  })
+
+
 })
 });

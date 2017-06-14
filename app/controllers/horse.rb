@@ -9,11 +9,21 @@ get '/horses/new' do
 end
 
 post '/horses' do
+  p params
   @horse = Horse.new(params[:horse])
   if @horse.save
-    redirect "/horses/#{@horse.id}"
+    if request.xhr?
+      "Horse was created!!!"
+    else
+      redirect "/horses/#{@horse.id}"
+    end
   else
-    erb :"/horses/new"
+    if request.xhr?
+      status 422
+      erb :'horses/_errors', layout: false, locals: { horse: @horse }
+    else
+      erb :"/horses/new"
+    end
   end
 end
 
